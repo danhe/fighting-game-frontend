@@ -3,10 +3,16 @@
     <nav>
       <div class="wrapper">
         <BaseButton class="first-button">
-          Lancer un combat
+          <router-link to="/fight/start">
+            Lancer un combat
+          </router-link>
         </BaseButton>
-        <BaseButton theme="secondary">
-          Creer un personnage
+        <BaseButton
+          theme="secondary"
+        >
+          <router-link to="/character/creation">
+            Creer un personnage
+          </router-link>
         </BaseButton>
       </div>
     </nav>
@@ -30,7 +36,7 @@ export default {
 <style lang="stylus" scoped>
   .main-layout {
     nav {
-      border-bottom: 1px solid #eaeaea
+      border-bottom: 1px solid var(--color-grey)
       padding: 8px 16px
     }
 

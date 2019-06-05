@@ -1,17 +1,31 @@
 <template>
-  <button class="base-button" :class="classes">
+  <Component
+    :is="tag"
+    class="base-button"
+    :class="classes"
+    v-bind="$attrs"
+    v-on="$listeners"
+  >
     <slot />
-  </button>
+  </Component>
 </template>
 
 <script>
 export default {
   name: 'BaseButton',
+  inheritAttrs: false,
   props: {
     theme: {
       type: String,
       default: 'primary',
     },
+    tag: {
+      type: String,
+      default: 'button',
+    },
+  },
+  created() {
+    console.warn(this.$listeners)
   },
   computed: {
     /**
@@ -46,7 +60,7 @@ export default {
     &.btn--secondary {
       background-color: var(--color-white)
       color: var(--color-black)
-      border: 1px solid #eaeaea
+      border: 1px solid var(--color-grey)
     }
   }
 </style>

@@ -1,14 +1,17 @@
 <template>
   <div class="match-history">
     <h4>Historique des combats</h4>
-    <div
-      v-for="match in history"
-      :key="match.id"
-      class="match"
-    >
-      🏅 <span class="winner">{{ match.winner }}</span> est le gagnant du combats !
-
-    </div>
+    <table>
+      <tr
+        v-for="match in history"
+        :key="match.id"
+      >
+        <td class="match">
+          <span class="winner">🏅{{ match.winner.name }}</span> est le gagnant du combats !
+          <div><span>⏰{{ match.created_at }}</span></div>
+        </td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -50,13 +53,17 @@ export default {
   .match-history {
     padding: 16px
 
+    table{
+      border-spacing: 1px
+
+      tr:hover {
+        background: var(--color-grey)
+      }
+    }
+
     .match {
       padding: 8px 0
       border-bottom: 1px solid var(--color-grey)
-
-      .winner {
-
-      }
     }
   }
 </style>

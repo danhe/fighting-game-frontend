@@ -13,12 +13,12 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/character/creation',
+      path: '/character/new',
       name: 'Créer ton personnage',
       component: () => import(/* webpackChunkName: "about" */ './views/CharacterCreation.vue'),
     },
     {
-      path: '/fight/start',
+      path: '/fighting/new',
       name: 'Lance un combat',
       component: () => import(/* webpackChunkName: "about" */ './views/MatchStart.vue'),
     },

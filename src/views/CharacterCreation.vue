@@ -45,7 +45,7 @@ export default {
       axios.post('https://fighting-game-api.herokuapp.com/api/v1/characters', {
         name: charName,
       })
-        .then(response => { console.warn(response) })
+        .then((response) => { console.warn(response) })
         .catch(e => { console.error(e) })
     },
   },

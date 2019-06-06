@@ -6,7 +6,7 @@
 
     <div class="footer">
       <BaseButton>
-        Lancer le combat
+        Commencer le combat
       </BaseButton>
     </div>
   </div>

@@ -1,19 +1,18 @@
 <template>
-  <vue-slider v-bind="$attrs" v-on="$listeners"/>
+  <VueSlideBar v-bind="$attrs" v-on="$listeners"/>
 </template>
 
 <script>
-import VueSlider from "vue-slider-component";
-import "vue-slider-component/theme/antd.css";
+  import VueSlideBar from 'vue-slide-bar'
 
-/**
- * This component is just a wrapper for the library slider-component
- */
-export default {
-  name: "BaseSlider",
-  inheritAttrs: false,
-  components: {
-    VueSlider
+  /**
+   * This component is just a wrapper for the library slider-component
+   */
+  export default {
+    name: "BaseSlider",
+    inheritAttrs: false,
+    components: {
+      VueSlideBar
+    }
   }
-};
 </script>

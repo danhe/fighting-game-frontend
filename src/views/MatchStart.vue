@@ -1,6 +1,10 @@
 <template>
   <div class="match-start">
     <h1>Lance un combat ⚔️ </h1>
+    <div v-if="matchInformation" class="card card-success match-info">
+      <h2>Le match s'est bien déroulé !</h2>
+      <strong>{{ matchInformation.winner.name }}</strong> est le gagnant du match !
+    </div>
     <h4 class="list-title">Choisis ton personnage</h4>
 
     <CharacterList
@@ -12,7 +16,10 @@
     />
 
     <div class="footer">
-      <BaseButton @click="onStartFight">
+      <BaseButton
+        :disabled="selectedCharacters.length < 2"
+        @click="onStartFight"
+      >
         Commencer le combat
       </BaseButton>
     </div>
@@ -33,7 +40,14 @@ export default {
   },
   data() {
     return {
-      selectedCharacters: []
+      /**
+       * 
+       */
+      selectedCharacters: [],
+      /**
+       * 
+       */
+      matchInformation: null,
     }
   },
   methods: {
@@ -55,7 +69,9 @@ export default {
       }
     },
     /**
-     * 
+     * Called when the user selected his weapon. We add the weapon id on the object
+     * with the matching character id
+     * @param {Object} fighter
      */
     onWeaponSelect(fighter) {
       const { selectedCharacters } = this
@@ -73,13 +89,16 @@ export default {
      * Will send the list of selected characters and selected weapons
      */
     onStartFight() {
-      const { selectedCharacters } = this
+      const { selectedCharacters, $router } = this
 
       axios.post('https://fighting-game-api.herokuapp.com/api/v1/fightings', {
         fighting: selectedCharacters
       })
-        .then((response) => { console.warn(response) })
-        .catch(e => { console.error(e) })
+        .then((response) => {
+          this.matchInformation = response.data
+          setTimeout(() => ( $router.push('/') ), 2000)
+        })
+        .catch(e => console.error(e))
     },
   },
 }
@@ -89,6 +108,10 @@ export default {
   .match-start {
     width: 800px
     margin: 40px auto
+
+    .match-info {
+      margin-top: 24px
+    }
 
     .list-title {
       margin-top: 40px
@@ -105,14 +128,13 @@ export default {
 
     .footer {
       z-index: 999
-      padding: 16px
+      padding: 16px 160px
       height: 40px
       position: fixed
       bottom: 0
       left: 0
       right: 0
       background-color: var(--color-white)
-      width: 100%
       border-top: solid 1px var(--color-grey)
     }
   }

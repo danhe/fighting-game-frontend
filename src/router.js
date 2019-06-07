@@ -22,5 +22,11 @@ export default new Router({
       name: 'Lance un combat',
       component: () => import(/* webpackChunkName: "about" */ './views/MatchStart.vue'),
     },
+    {
+      path: '/character/:id',
+      name: 'Détails du personnage',
+      props: true,
+      component: () => import(/* webpackChunkName: "about" */ './views/CharacterInformations.vue'),
+    },
   ],
 })

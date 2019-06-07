@@ -1,13 +1,13 @@
 <template>
-  <Component
-    :is="tag"
+  <button
     class="base-button"
     :class="classes"
+    :disabled="disabled"
     v-bind="$attrs"
     v-on="$listeners"
   >
     <slot />
-  </Component>
+  </button>
 </template>
 
 <script>
@@ -15,17 +15,20 @@ export default {
   name: 'BaseButton',
   inheritAttrs: false,
   props: {
+    /**
+     * THeme to apply to the button
+     */
     theme: {
       type: String,
       default: 'primary',
     },
-    tag: {
-      type: String,
-      default: 'button',
+    /**
+     * 
+     */
+    disabled: {
+      type: Boolean,
+      default: false,
     },
-  },
-  created() {
-    console.warn(this.$listeners)
   },
   computed: {
     /**
@@ -33,9 +36,12 @@ export default {
      * @return {Object}
      */
     classes() {
-      const { theme } = this
+      const { theme, disabled } = this
 
-      return { [`btn--${theme}`]: true }
+      return { 
+        [`btn--${theme}`]: true,
+        [`btn--disabled`]: disabled,
+      }
     },
   },
 }
@@ -55,12 +61,21 @@ export default {
     &.btn--primary {
       background-color: var(--color-action)
       color: var(--color-white)
+      
+      > * {
+        color: var(--color-white)
+      }
     }
 
     &.btn--secondary {
       background-color: var(--color-white)
       color: var(--color-black)
       border: 1px solid var(--color-grey)
+    }
+
+    &.btn--disabled {
+      opacity: 0.5
+      cursor: not-allowed
     }
   }
 </style>

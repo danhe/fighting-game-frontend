@@ -43,7 +43,7 @@ export default {
      */
     selectedCharacters: {
       type: Array,
-      default: [],
+      default: () => [],
     },
   },
   data() {

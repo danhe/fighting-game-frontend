@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <div class="weapon-list">
+    <div class="weapon-list" v-if="$slots.default">
       <slot />
     </div>
   </div>

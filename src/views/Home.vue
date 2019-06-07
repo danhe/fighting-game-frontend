@@ -3,15 +3,24 @@
     <header>
       <div class="card card-info introduction">
         <h1>Hello CaptainContrat 👋</h1>
-        Bonjour todo text Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Aliquam consequat vehicula felis quis cursus. Nulla augue amet.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Aliquam consequat vehicula felis quis cursus. Nulla augue amet.
+        <div>Je m'apelle Dan et voici mon test technique !</div>
+        <div>
+          Vous êtes ici sur la home, ou vous pouvez voir la liste des personnages existants, ainsi
+          que l'historique des combats. 
+        </div>
+        <div>
+          De plus, vous pouvez aussi créer un combat entre deux personnages, ou créer votre personnage !
+        </div>
       </div>
     </header>
+
     <div class="content-wrapper">
-      <CharacterList />
-      <MatchHistory />
+      <CharacterList 
+        class="character-list"
+        :selectable="true"
+        @click="onCharacterClick"
+      />
+      <MatchHistory class="match-history" />
     </div>
   </div>
 </template>
@@ -25,6 +34,14 @@ export default {
   components: {
     CharacterList,
     MatchHistory,
+  },
+  methods: {
+    /**
+     * Redirect on the details page of the character cliecked by the user
+     */
+    onCharacterClick(id) {
+      this.$router.push(`/character/${id}`)
+    },
   },
 }
 </script>
@@ -43,6 +60,10 @@ export default {
 
         h1 {
           margin-bottom: 24px
+        }
+
+        .description {
+          white-space:
         }
       }
     }

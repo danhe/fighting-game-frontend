@@ -31,6 +31,9 @@
         </div>
       </label>
     </div>
+    <div v-if="weapons.length === 0">
+      Désolé mais tu n'as pas assez d'expériences pour séléctionner une arme 😱
+    </div>
   </div>
 </template>
 
@@ -40,6 +43,9 @@ import axios from 'axios'
 export default {
   name: 'WeaponSelector',
   props: {
+    /**
+     * Id of the character who want to select weapons
+     */
     characterId: {
       type: Number,
       required: true,
@@ -52,7 +58,9 @@ export default {
     }
   },
   created() {
-    axios.get('https://fighting-game-api.herokuapp.com/api/v1/weapons')
+    const { characterId } = this
+
+    axios.get(`https://fighting-game-api.herokuapp.com/api/v1/characters/${characterId}/weapons`)
       .then((response) => {
         // JSON responses are automatically parsed.
         this.weapons = response.data

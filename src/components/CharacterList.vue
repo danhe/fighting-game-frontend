@@ -4,7 +4,12 @@
       v-for="char in characters"
       :key="char.id"
       :char="char"
-    />
+      :selectable="selectable"
+      :selected="selectedCharacters.indexOf(char.id) !== -1"
+      @click="onClick"
+    >
+      <WeaponSelector :character-id="char.id" />
+    </CharacterCard>
   </div>
 </template>
 
@@ -12,16 +17,22 @@
 import axios from 'axios'
 
 import CharacterCard from '@/components/CharacterCard.vue'
+import WeaponSelector from '@/components/WeaponSelector.vue'
 
 export default {
   name: 'CharacterCardsList',
   components: {
     CharacterCard,
+    WeaponSelector,
   },
   props: {
     selectable: {
       type: Boolean,
       default: false,
+    },
+    selectedCharacters: {
+      type: Array,
+      default: [],
     },
   },
   data() {
@@ -40,15 +51,11 @@ export default {
       .catch((e) => {
         this.errors.push(e)
       })
-
-    // async / await version (created() becomes async created())
-    //
-    // try {
-    //   const response = await axios.get(`http://jsonplaceholder.typicode.com/posts`)
-    //   this.posts = response.data
-    // } catch (e) {
-    //   this.errors.push(e)
-    // }
+  },
+  methods: {
+    onClick(event) {
+      this.$emit('click', event)
+    }
   },
 }
 </script>

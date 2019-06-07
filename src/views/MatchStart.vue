@@ -2,10 +2,16 @@
   <div class="match-start">
     <h1>Lance un combat ⚔️ </h1>
     <h4 class="list-title">Choisis ton personnage</h4>
-    <CharacterList class="characters" />
+
+    <CharacterList
+      class="characters"
+      :selectable="isSelectable"
+      :selectedCharacters="selectedCharacters"
+      @click="onCharacterSelect"
+    />
 
     <div class="footer">
-      <BaseButton>
+      <BaseButton @click="startFight">
         Commencer le combat
       </BaseButton>
     </div>
@@ -13,6 +19,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 import CharacterList from '@/components/CharacterList.vue'
 import BaseButton from '@/components/core/BaseButton.vue'
 
@@ -21,6 +29,40 @@ export default {
   components: {
     CharacterList,
     BaseButton,
+  },
+  data() {
+    return {
+      selectedCharacters: []
+    }
+  },
+  methods: {
+    onCharacterSelect(char) {
+      const { selectedCharacters } = this
+      const index = selectedCharacters.indexOf(char)
+
+      if (index !== -1) {
+        selectedCharacters.splice(index, 1)
+      } else {
+        selectedCharacters.push(char)
+      }
+    },
+    startFight() {
+      const { selectedCharacters } = this
+
+      axios.post('https://fighting-game-api.herokuapp.com/api/v1/fightings', {
+        fighter_one_id: selectedCharacters[0],
+        fighter_two_id: selectedCharacters[1],
+      })
+        .then((response) => { console.warn(response) })
+        .catch(e => { console.error(e) })
+    },
+  },
+  computed: {
+    isSelectable() {
+      const { selectedCharacters } = this
+
+      return selectedCharacters.length < 2
+    }
   },
 }
 </script>

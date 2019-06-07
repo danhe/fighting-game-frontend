@@ -5,7 +5,7 @@
   >
     <div
       class="character-info"
-      @click="$emit('click', character.id)"
+      @click="onCardClick"
     >
       <div class="character-name">
         <span class="overline">Personnage</span>
@@ -54,51 +54,63 @@
 </template>
 
 <script>
-  import BaseSlider from '@/components/core/BaseSlider.vue'
+import BaseSlider from '@/components/core/BaseSlider.vue'
 
-  export default {
-    name: 'CharacterCard',
-    components: {
-      BaseSlider,
-    },
-    props: {
-      /**
+export default {
+  name: 'CharacterCard',
+  components: {
+    BaseSlider,
+  },
+  props: {
+    /**
        * Character we want to display in the card
        */
-      character: {
-        type: Object,
-        required: true
-      },
-      /**
+    character: {
+      type: Object,
+      required: true,
+    },
+    /**
        * Apply a different style on the card if the card is selectable
        */
-      selectable: {
-        type: Boolean,
-        default: false,
-      },
-      /**
+    selectable: {
+      type: Boolean,
+      default: false,
+    },
+    /**
        * Apply a different style on the card if the card is selected
        */
-      selected: {
-        type: Boolean,
-        default: false,
-      },
+    selected: {
+      type: Boolean,
+      default: false,
     },
-    computed: {
-      /**
+  },
+  computed: {
+    /**
        * Create an object with all the class to apply at the root according
        * to the given props
        */
-      classes() {
-        const { selectable, selected } = this
+    classes() {
+      const { selectable, selected } = this
 
-        return [
-          { 'character-card--selectable' : selectable },
-          { 'character-card--selected' : selected },
-        ]
-      },
+      return [
+        { 'character-card--selectable': selectable },
+        { 'character-card--selected': selected },
+      ]
     },
-  }
+  },
+  methods: {
+    /**
+       * Emit the id of the character if the card is clicked and selectable
+       */
+    onCardClick() {
+      const { selectable, character } = this
+
+      if (selectable) {
+        this.$emit('click', character.id)
+      }
+    },
+  },
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -146,5 +158,3 @@
     }
   }
 </style>
-
-

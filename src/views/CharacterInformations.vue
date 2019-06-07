@@ -8,16 +8,6 @@
     </div>
 
     <div>
-      <span class="overline">Level</span>
-      <div>{{ character.level }}</div>
-    </div>
-
-    <div>
-      <span class="overline">Pouvoir</span>
-      <div>{{ character.power }}</div>
-    </div>
-
-    <div>
       <span class="overline">Experiences</span>
       <BaseSlider
         :value="character.current_experience"
@@ -27,6 +17,17 @@
         :paddingless="true"
       />
       {{ `${character.current_experience}/${character.max_experience}` }}
+    </div>
+
+
+    <div>
+      <span class="overline">Level</span>
+      <div>{{ character.level }}</div>
+    </div>
+
+    <div>
+      <span class="overline">Pouvoir</span>
+      <div>{{ character.power }}</div>
     </div>
 
     <div>
@@ -68,7 +69,7 @@ export default {
   created() {
     const { id } = this
 
-    if(id) {
+    if (id) {
       axios.get(`https://fighting-game-api.herokuapp.com/api/v1/characters/${id}`)
         .then((response) => {
           // JSON responses are automatically parsed.
@@ -86,5 +87,14 @@ export default {
   .character-informations {
     margin: 0 auto
     width 1040px
+    display: grid
+    grid-auto-rows: min-content
+    grid-template-columns: repeat(2, 1fr)
+    grid-row-gap: 24px
+    grid-column-gap: 40px
+
+    h1 {
+      grid-column: 1/-1
+    }
   }
 </style>

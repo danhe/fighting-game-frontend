@@ -41,11 +41,11 @@ export default {
   data() {
     return {
       /**
-       * 
+       *
        */
       selectedCharacters: [],
       /**
-       * 
+       *
        */
       matchInformation: null,
     }
@@ -55,17 +55,17 @@ export default {
      * Call when the user click on an element of the character list
      * @param {Number} char
      */
-    onCharacterSelect(char) {
+    onCharacterSelect(characterId) {
       const { selectedCharacters } = this
 
       // Flat the map to have only the ids
-      const selectedIds =  selectedCharacters.map(char => char.fighter_id)
-      const index = selectedIds.indexOf(char)
+      const selectedIds = selectedCharacters.map(char => char.fighter_id)
+      const index = selectedIds.indexOf(characterId)
 
       if (index !== -1) {
         selectedCharacters.splice(index, 1)
       } else {
-        selectedCharacters.push({ fighter_id: char })
+        selectedCharacters.push({ fighter_id: characterId })
       }
     },
     /**
@@ -75,13 +75,13 @@ export default {
      */
     onWeaponSelect(fighter) {
       const { selectedCharacters } = this
-      
-      const selectedIds =  selectedCharacters.map(char => char.fighter_id)
+
+      const selectedIds = selectedCharacters.map(char => char.fighter_id)
       const index = selectedIds.indexOf(fighter.characterId)
 
       selectedCharacters[index] = {
         ...selectedCharacters[index],
-        weapon_id: fighter.weaponId
+        weapon_id: fighter.weaponId,
       }
     },
     /**
@@ -92,13 +92,12 @@ export default {
       const { selectedCharacters, $router } = this
 
       axios.post('https://fighting-game-api.herokuapp.com/api/v1/fightings', {
-        fighting: selectedCharacters
+        fighting: selectedCharacters,
       })
         .then((response) => {
           this.matchInformation = response.data
-          setTimeout(() => ( $router.push('/') ), 2000)
+          setTimeout(() => ($router.push('/')), 2000)
         })
-        .catch(e => console.error(e))
     },
   },
 }

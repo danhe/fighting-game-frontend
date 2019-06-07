@@ -4,14 +4,14 @@
       v-for="char in characters"
       :key="char.id"
       :character="char"
-      :selectable="selectable"
+      :selectable="selectable || isSelected(char.id)"
       :selected="isSelected(char.id)"
       @click="(event) => $emit('click', event)"
     >
       <WeaponSelector
         v-if="isSelected(char.id)"
-        :character-id="char.id" 
-        @update="(weaponId) => $emit('weapon', { weaponId, characterId })"
+        :character-id="char.id"
+        @update="(weaponId) => $emit('weapon', { weaponId, characterId: char.id })"
       />
     </CharacterCard>
   </div>
@@ -73,7 +73,7 @@ export default {
       const { selectedCharacters } = this
 
       // Flatten the map to only have the id of the selected characters
-      const selectedIds =  selectedCharacters.map(char => char.fighter_id)
+      const selectedIds = selectedCharacters.map(char => char.fighter_id)
 
       return selectedIds.indexOf(characterId) !== -1
     },

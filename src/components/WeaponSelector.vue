@@ -11,7 +11,7 @@
         :name="`weapon-${characterId}`"
         @input="$emit('update', weapon.id)"
       />
-      <label 
+      <label
         :for="`weapon-${weapon.id}`"
         class="weapon-label"
       >
@@ -81,7 +81,7 @@ export default {
     }
 
     .weapon {
-      display: flex 
+      display: flex
 
       .weapon-label {
         display: flex

@@ -55,8 +55,8 @@ export default {
 
       .nav-line {
         width: 80%
-        margin: auto 
-        
+        margin: auto
+
         aside {
           display: inline-block
 

@@ -6,16 +6,17 @@
         <div>Je m'apelle Dan et voici mon test technique !</div>
         <div>
           Vous êtes ici sur la home, ou vous pouvez voir la liste des personnages existants, ainsi
-          que l'historique des combats. 
+          que l'historique des combats.
         </div>
         <div>
-          De plus, vous pouvez aussi créer un combat entre deux personnages, ou créer votre personnage !
+          De plus, vous pouvez aussi créer un combat entre deux personnages,
+          ou créer votre personnage !
         </div>
       </div>
     </header>
 
     <div class="content-wrapper">
-      <CharacterList 
+      <CharacterList
         class="character-list"
         :selectable="true"
         @click="onCharacterClick"

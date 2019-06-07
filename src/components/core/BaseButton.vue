@@ -23,7 +23,7 @@ export default {
       default: 'primary',
     },
     /**
-     * 
+     *
      */
     disabled: {
       type: Boolean,
@@ -38,9 +38,9 @@ export default {
     classes() {
       const { theme, disabled } = this
 
-      return { 
+      return {
         [`btn--${theme}`]: true,
-        [`btn--disabled`]: disabled,
+        'btn--disabled': disabled,
       }
     },
   },
@@ -61,7 +61,7 @@ export default {
     &.btn--primary {
       background-color: var(--color-action)
       color: var(--color-white)
-      
+
       > * {
         color: var(--color-white)
       }

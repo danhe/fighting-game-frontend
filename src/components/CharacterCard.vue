@@ -5,49 +5,49 @@
   >
     <div
       class="character-info"
-      @click="onClick"
+      @click="$emit('click', character.id)"
     >
-      <div class="char-name">
+      <div class="character-name">
         <span class="overline">Personnage</span>
-        <h2>{{char.name}}</h2>
+        <h2>{{ character.name }}</h2>
       </div>
 
       <div>
         <span class="overline">Level</span>
-        <div>{{char.level}}</div>
+        <div>{{ character.level }}</div>
       </div>
 
       <div>
         <span class="overline">Pouvoir</span>
-        <div>{{char.power}}</div>
+        <div>{{ character.power }}</div>
       </div>
 
       <div>
         <span class="overline">Experiences</span>
         <BaseSlider
-          :value="char.current_experience"
-          :max="char.max_experience"
+          :value="character.current_experience"
+          :max="character.max_experience"
           :is-disabled="true"
           :show-tooltip="false"
           :paddingless="true"
         />
-        {{ `${char.current_experience}/${char.max_experience}` }}
+        {{ `${character.current_experience}/${character.max_experience}` }}
       </div>
 
       <div>
         <span class="overline">Vie</span>
         <BaseSlider
-          :value="char.current_life"
-          :max="char.max_life"
+          :value="character.current_life"
+          :max="character.max_life"
           :is-disabled="true"
           :show-tooltip="false"
           :paddingless="true"
         />
-        {{ `${char.current_life}/${char.max_life}` }}
+        {{ `${character.current_life}/${character.max_life}` }}
       </div>
     </div>
 
-    <div class="weapon-list" v-if="selected">
+    <div class="weapon-list">
       <slot />
     </div>
   </div>
@@ -62,20 +62,33 @@
       BaseSlider,
     },
     props: {
-      char: {
+      /**
+       * Character we want to display in the card
+       */
+      character: {
         type: Object,
         required: true
       },
+      /**
+       * Apply a different style on the card if the card is selectable
+       */
       selectable: {
         type: Boolean,
         default: false,
       },
+      /**
+       * Apply a different style on the card if the card is selected
+       */
       selected: {
         type: Boolean,
         default: false,
       },
     },
     computed: {
+      /**
+       * Create an object with all the class to apply at the root according
+       * to the given props
+       */
       classes() {
         const { selectable, selected } = this
 
@@ -84,13 +97,6 @@
           { 'character-card--selected' : selected },
         ]
       },
-    },
-    methods: {
-      onClick() {
-        const { char } = this
-
-        this.$emit('click', char.id)
-      }
     },
   }
 </script>
@@ -105,7 +111,7 @@
       grid-column-gap: 16px
       margin-bottom: 12px
 
-      .char-name {
+      .character-name {
         grid-column: 1/-1
       }
     }
@@ -117,6 +123,7 @@
     }
   }
 
+
   .character-card--selectable {
     cursor: pointer
 
@@ -124,6 +131,7 @@
       border: 1px solid var(--color-action)
     }
   }
+
 
   .character-card:not(.character-card--selected) {
     max-height: 185px

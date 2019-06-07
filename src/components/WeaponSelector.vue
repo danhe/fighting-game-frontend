@@ -7,12 +7,29 @@
     >
       <input
         type="radio"
+        :id="`weapon-${weapon.id}`"
         :name="`weapon-${characterId}`"
         @input="$emit('update', weapon.id)"
       />
-      <span>{{ weapon.name }}</span>
-      <span>{{ weapon.experience_price }}</span>
-      <span>{{ weapon.additional_power_percent }}</span>
+      <label 
+        :for="`weapon-${weapon.id}`"
+        class="weapon-label"
+      >
+        <div class="weapon-info">
+          <div class="overline">Nom</div>
+          <span>{{ weapon.name }}</span>
+        </div>
+
+        <div class="weapon-info">
+          <div class="overline">Prix</div>
+          <span>{{ weapon.experience_price }}</span>
+        </div>
+
+        <div class="weapon-info">
+          <div class="overline">Pouvoir</div>
+          <span>{{ weapon.additional_power_percent }}</span>
+        </div>
+      </label>
     </div>
   </div>
 </template>
@@ -50,5 +67,30 @@ export default {
 <style lang="stylus" scoped>
   .weapon-selector {
     padding: 16px
+
+    input {
+      margin-right: 8px
+    }
+
+    .weapon {
+      display: flex 
+
+      .weapon-label {
+        display: flex
+
+        & > div:not(:last-child) {
+          margin-right: 16px
+        }
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 8px
+      }
+
+      .weapon-info {
+        display: flex
+        flex-direction: column
+      }
+    }
   }
 </style>

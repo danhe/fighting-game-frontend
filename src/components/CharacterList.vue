@@ -3,12 +3,16 @@
     <CharacterCard
       v-for="char in characters"
       :key="char.id"
-      :char="char"
+      :character="char"
       :selectable="selectable"
-      :selected="selectedCharacters.indexOf(char.id) !== -1"
-      @click="onClick"
+      :selected="isSelected(char.id)"
+      @click="(event) => $emit('click', event)"
     >
-      <WeaponSelector :character-id="char.id" />
+      <WeaponSelector
+        v-if="isSelected(char.id)"
+        :character-id="char.id" 
+        @update="(weaponId) => $emit('weapon', { weaponId, characterId })"
+      />
     </CharacterCard>
   </div>
 </template>
@@ -26,10 +30,17 @@ export default {
     WeaponSelector,
   },
   props: {
+    /**
+     * The list can be selectable, which means the user can click on the elements
+     * of the list
+     */
     selectable: {
       type: Boolean,
       default: false,
     },
+    /**
+     * List of selected character
+     */
     selectedCharacters: {
       type: Array,
       default: [],
@@ -53,9 +64,19 @@ export default {
       })
   },
   methods: {
-    onClick(event) {
-      this.$emit('click', event)
-    }
+    /**
+     * Check if the given character id is in the list of the selected character
+     * @param {Number} characterId
+     * @return {Boolean}
+     */
+    isSelected(characterId) {
+      const { selectedCharacters } = this
+
+      // Flatten the map to only have the id of the selected characters
+      const selectedIds =  selectedCharacters.map(char => char.fighter_id)
+
+      return selectedIds.indexOf(characterId) !== -1
+    },
   },
 }
 </script>

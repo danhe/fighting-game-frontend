@@ -5,13 +5,14 @@
 
     <CharacterList
       class="characters"
-      :selectable="isSelectable"
+      :selectable="selectedCharacters.length < 2"
       :selectedCharacters="selectedCharacters"
       @click="onCharacterSelect"
+      @weapon="onWeaponSelect"
     />
 
     <div class="footer">
-      <BaseButton @click="startFight">
+      <BaseButton @click="onStartFight">
         Commencer le combat
       </BaseButton>
     </div>
@@ -36,33 +37,50 @@ export default {
     }
   },
   methods: {
+    /**
+     * Call when the user click on an element of the character list
+     * @param {Number} char
+     */
     onCharacterSelect(char) {
       const { selectedCharacters } = this
-      const index = selectedCharacters.indexOf(char)
+
+      // Flat the map to have only the ids
+      const selectedIds =  selectedCharacters.map(char => char.fighter_id)
+      const index = selectedIds.indexOf(char)
 
       if (index !== -1) {
         selectedCharacters.splice(index, 1)
       } else {
-        selectedCharacters.push(char)
+        selectedCharacters.push({ fighter_id: char })
       }
     },
-    startFight() {
+    /**
+     * 
+     */
+    onWeaponSelect(fighter) {
+      const { selectedCharacters } = this
+      
+      const selectedIds =  selectedCharacters.map(char => char.fighter_id)
+      const index = selectedIds.indexOf(fighter.characterId)
+
+      selectedCharacters[index] = {
+        ...selectedCharacters[index],
+        weapon_id: fighter.weaponId
+      }
+    },
+    /**
+     * Called when the user click on the button to start the fight,
+     * Will send the list of selected characters and selected weapons
+     */
+    onStartFight() {
       const { selectedCharacters } = this
 
       axios.post('https://fighting-game-api.herokuapp.com/api/v1/fightings', {
-        fighter_one_id: selectedCharacters[0],
-        fighter_two_id: selectedCharacters[1],
+        fighting: selectedCharacters
       })
         .then((response) => { console.warn(response) })
         .catch(e => { console.error(e) })
     },
-  },
-  computed: {
-    isSelectable() {
-      const { selectedCharacters } = this
-
-      return selectedCharacters.length < 2
-    }
   },
 }
 </script>

@@ -27,7 +27,7 @@
 
         <div class="weapon-info">
           <div class="overline">Pouvoir</div>
-          <span>{{ weapon.additional_power_percent }}</span>
+          <span>{{ weapon.additional_power }}</span>
         </div>
       </label>
     </div>

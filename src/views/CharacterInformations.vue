@@ -19,7 +19,6 @@
       {{ `${character.current_experience}/${character.max_experience}` }}
     </div>
 
-
     <div>
       <span class="overline">Level</span>
       <div>{{ character.level }}</div>
@@ -56,11 +55,23 @@ export default {
   },
   data() {
     return {
-      character: [],
+      /**
+       * Character object received from the server
+       * @type Object
+       */
+      character: {},
+      /**
+       * Error when fetching the character from the server
+       * @type {Array}
+       */
       errors: [],
     }
   },
   props: {
+    /**
+     * Id of the character we want to display informations
+     * Used to query all the information from the server
+     */
     id: {
       type: String,
       required: true,
@@ -69,10 +80,10 @@ export default {
   created() {
     const { id } = this
 
+    // When the component is created we directly query the character we want to display
     if (id) {
       axios.get(`https://fighting-game-api.herokuapp.com/api/v1/characters/${id}`)
         .then((response) => {
-          // JSON responses are automatically parsed.
           this.character = response.data
         })
         .catch((e) => {

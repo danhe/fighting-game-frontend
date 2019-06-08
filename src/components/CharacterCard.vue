@@ -63,22 +63,22 @@ export default {
   },
   props: {
     /**
-       * Character we want to display in the card
-       */
+     * Character we want to display in the card
+     */
     character: {
       type: Object,
       required: true,
     },
     /**
-       * Apply a different style on the card if the card is selectable
-       */
+     * Apply a different style on the card if the card is selectable
+     */
     selectable: {
       type: Boolean,
       default: false,
     },
     /**
-       * Apply a different style on the card if the card is selected
-       */
+     * Apply a different style on the card if the card is selected
+     */
     selected: {
       type: Boolean,
       default: false,
@@ -86,9 +86,9 @@ export default {
   },
   computed: {
     /**
-       * Create an object with all the class to apply at the root according
-       * to the given props
-       */
+     * Create an object with all the class to apply at the root according
+     * to the given props
+     */
     classes() {
       const { selectable, selected } = this
 

@@ -16,14 +16,14 @@ export default {
   inheritAttrs: false,
   props: {
     /**
-     * THeme to apply to the button
+     * Theme to apply to the button
      */
     theme: {
       type: String,
       default: 'primary',
     },
     /**
-     *
+     * Used to disable the button and apply a specific style
      */
     disabled: {
       type: Boolean,

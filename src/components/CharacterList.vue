@@ -48,15 +48,21 @@ export default {
   },
   data() {
     return {
+      /**
+       * List of characters receive from the server
+       * @type {Array}
+       */
       characters: [],
+      /**
+       * Erros sent by the server if it does not manage to send us the list of characters
+       * @type {Array}
+       */
       errors: [],
     }
   },
-  // Fetches posts when the component is created.
   created() {
     axios.get('https://fighting-game-api.herokuapp.com/api/v1/characters')
       .then((response) => {
-        // JSON responses are automatically parsed.
         this.characters = response.data
       })
       .catch((e) => {

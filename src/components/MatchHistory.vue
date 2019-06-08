@@ -22,15 +22,21 @@ export default {
   name: 'MatchHistory',
   data() {
     return {
+      /**
+       * List of match history
+       * @type {Array}
+       */
       history: [],
+      /**
+       * Errors send by the server if it doesn't manage so send us the match history
+       * @type {Array}
+       */
       errors: [],
     }
   },
-  // Fetches posts when the component is created.
   created() {
     axios.get('https://fighting-game-api.herokuapp.com/api/v1/fightings')
       .then((response) => {
-        // JSON responses are automatically parsed.
         this.history = response.data
       })
       .catch((e) => {

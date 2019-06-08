@@ -31,7 +31,24 @@
         </div>
       </label>
     </div>
-    <div v-if="weapons.length === 0">
+    <div
+      v-if="weapons.length > 0"
+      class="weapon"
+    >
+      <input
+        type="radio"
+        id="no-weapon"
+        :name="`weapon-${characterId}`"
+        @input="$emit('update', weapon.id)"
+      />
+      <label
+        for="no-weapon"
+        class="weapon-label"
+      >
+        Jouer sans arme
+      </label>
+    </div>
+    <div v-else>
       Désolé mais tu n'as pas assez d'expériences pour séléctionner une arme 😱
     </div>
   </div>
@@ -53,7 +70,17 @@ export default {
   },
   data() {
     return {
+      /**
+       * List of weapons available for the character with the given id
+       * Because a character pay a weapon in XP point, we need to display only
+       * the weapons he can buy
+       * @type {Array}
+       */
       weapons: [],
+      /**
+       * List of errors if the backend don't manage to send us the weapon list
+       * @type {Array}
+       */
       errors: [],
     }
   },
@@ -62,7 +89,6 @@ export default {
 
     axios.get(`https://fighting-game-api.herokuapp.com/api/v1/characters/${characterId}/weapons`)
       .then((response) => {
-        // JSON responses are automatically parsed.
         this.weapons = response.data
       })
       .catch((e) => {

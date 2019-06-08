@@ -49,18 +49,20 @@ export default {
        */
       charName: '',
       /**
-       *
+       * Response of the server when the user created a character
+       * User to display success message
        */
       creationResponse: null,
       /**
-       *
+       * Error of the server after the user created a character
+       * Used to display error message
        */
       creationError: null,
     }
   },
   methods: {
     /**
-     * Called when the user want to create a
+     * Called when the user want to create a character
      */
     onClick() {
       const { charName } = this

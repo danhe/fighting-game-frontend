@@ -39,6 +39,7 @@ export default {
   methods: {
     /**
      * Redirect on the details page of the character cliecked by the user
+     * @param {Number} id
      */
     onCharacterClick(id) {
       this.$router.push(`/character/${id}`)

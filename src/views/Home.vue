@@ -2,8 +2,8 @@
   <div class="home">
     <header>
       <div class="card card-info introduction">
-        <h1>Hello CaptainContrat 👋</h1>
-        <div>Je m'apelle Dan et voici mon test technique !</div>
+        <h1>Hello 👋</h1>
+        <div>Fighting Game</div>
         <div>
           Vous êtes ici sur la home, ou vous pouvez voir la liste des personnages existants, ainsi
           que l'historique des combats.

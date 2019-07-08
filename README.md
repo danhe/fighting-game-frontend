@@ -1,4 +1,4 @@
-# captain-combat
+# Fighting-game
 
 ## Project setup
 ```
